@@ -1,9 +1,2 @@
 #!/bin/bash
-
-rm /usr/local/bin/atom
-rm /usr/local/bin/apm
-rm -rf ~/atom
-rm -rf ~/.atom
-rm -rf ~/.config/Atom-Shell
-rm -rf /usr/local/share/atom/
-
+apt-get install -y libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev libcurl4-openssl-dev libssl-dev uuid-dev unzip
