@@ -86,6 +86,10 @@ function installSteam () {
   add-apt-repository -y multiverse
 }
 
+function installAntimicro  () {
+
+  add-apt-repository -y ppa:mdeguzis/libregeek
+}
 function install () {
 
   installChrome
@@ -94,14 +98,16 @@ function install () {
   installAtom
   installGoogleDrive
   installTLP
+  installTerminator
   installSteam
+  installAntimicro
   apt-get update -y
   apt-get upgrade -y
   apt-get install -y git-core preload 7zip unrar zip unzip \
     libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
     libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic
   apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
-    unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw
+    unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw antimicro
   apt-get update -y
   apt-get upgrade -y
   apt-get clean -y
@@ -135,6 +141,7 @@ function configGit () {
 }
 
 function configTerminator () {
+
   gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
 }
 
