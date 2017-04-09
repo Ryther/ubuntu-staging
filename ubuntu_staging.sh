@@ -105,7 +105,7 @@ function install () {
   apt-get upgrade -y
   apt-get install -y git-core preload 7zip unrar zip unzip \
     libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
-    libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic
+    libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic libgnome-keyring-dev
   apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
     unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw antimicro
   apt-get update -y
@@ -149,6 +149,7 @@ function configProg () {
 
   configNodejs
   configGit
+  configTerminator
   tlp start
 }
 
@@ -165,5 +166,5 @@ function beautify () {
 
 install
 configProg
-beautify
 apt-get install -y steam
+beautify
