@@ -74,6 +74,16 @@ function installTLP () {
   add-apt-repository ppa:linrunner/tlp -y
 }
 
+function installSteam () {
+
+  add-apt-repository multiverse
+}
+
+function installController () {
+
+  add-apt-repository ppa:mdeslaur/steamos
+}
+
 function install () {
 
   installChrome
@@ -81,10 +91,15 @@ function install () {
   installNodejs
   installAtom
   installGoogleDrive
+  installTLP
+  installSteam
   apt-get update -y
   apt-get upgrade -y
-  apt-get install git-core preload 7zip unrar zip unzip libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev libcurl4-openssl-dev libssl-dev uuid-dev
-  apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync unity-tweak-tool compizconfig-settings-manager zsh
+  apt-get install -y git-core preload 7zip unrar zip unzip \
+    libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
+    libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic
+  apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
+    unity-tweak-tool compizconfig-settings-manager zsh tlp tlp-rdw steamos-xpad-dkms
   apt-get update -y
   apt-get upgrade -y
   apt-get clean -y
@@ -110,10 +125,17 @@ function configNodejs () {
   npm install --global generator-aspnet
 }
 
+function configGit () {
+
+  cd /usr/share/doc/git/contrib/credential/gnome-keyring
+  sudo make
+  git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+}
+
 function configProg () {
 
   configNodejs
-  apt-get install tlp tlp-rdw
+  configGit
   tlp start
 }
 
@@ -121,7 +143,7 @@ function beautify () {
 
   apt-add-repository ppa:tista/adapta -y
   apt update
-  apt install adapta-gtk-theme
+  apt install -y adapta-gtk-theme
   gsettings set com.canonical.Unity.Launcher launcher-position Bottom
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -131,3 +153,4 @@ function beautify () {
 install
 configProg
 beautify
+apt-get install -y steam
