@@ -86,11 +86,6 @@ function installSteam () {
   add-apt-repository -y multiverse
 }
 
-function installController () {
-
-  add-apt-repository -y ppa:mdeslaur/steamos
-}
-
 function install () {
 
   installChrome
@@ -106,7 +101,7 @@ function install () {
     libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
     libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic
   apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
-    unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw steamos-xpad-dkms
+    unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw
   apt-get update -y
   apt-get upgrade -y
   apt-get clean -y
