@@ -7,7 +7,9 @@ osStandardName="wily"
 # Config params
 dotnetVersion="1.0.1"
 # PPA params
-chromePPA="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+chromePPA="### THIS FILE IS AUTOMATICALLY CONFIGURED ###
+# You may comment out this entry, but any other modifications may be lost.
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
 netcorePPA="deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ $osName main"
 atomPPA="webupd8team/atom"
 gdrivePPA="deb http://apt.insynchq.com/$osType $osStandardName non-free contrib"
@@ -34,7 +36,7 @@ function stdMessage () {
 function installChrome () {
 
   # add and validate Chrome key
-  addPPA 'Google Chrome' "$chromePPA" '/etc/apt/sources.list'
+  addPPA 'Google Chrome' "$chromePPA" '/etc/apt/sources.list.d/google-chrome.list'
   stdMessage 'Added Google PPA'
   wget https://dl.google.com/linux/linux_signing_key.pub
   stdMessage 'Downloaded Google signing key'
@@ -59,7 +61,7 @@ function installDotNet () {
 function installAtom () {
 
   # add PPA
-  add-apt-repository ppa:$atomPPA
+  add-apt-repository -y ppa:$atomPPA
 }
 
 function installGoogleDrive () {
@@ -71,17 +73,22 @@ function installGoogleDrive () {
 
 function installTLP () {
 
-  add-apt-repository ppa:linrunner/tlp -y
+  add-apt-repository -y ppa:linrunner/tlp -y
+}
+
+function installTerminator () {
+
+  add-apt-repository -y ppa:gnome-terminator
 }
 
 function installSteam () {
 
-  add-apt-repository multiverse
+  add-apt-repository -y multiverse
 }
 
 function installController () {
 
-  add-apt-repository ppa:mdeslaur/steamos
+  add-apt-repository -y ppa:mdeslaur/steamos
 }
 
 function install () {
@@ -99,7 +106,7 @@ function install () {
     libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
     libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic
   apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
-    unity-tweak-tool compizconfig-settings-manager zsh tlp tlp-rdw steamos-xpad-dkms
+    unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw steamos-xpad-dkms
   apt-get update -y
   apt-get upgrade -y
   apt-get clean -y
@@ -130,6 +137,10 @@ function configGit () {
   cd /usr/share/doc/git/contrib/credential/gnome-keyring
   sudo make
   git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+}
+
+function configTerminator () {
+  gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
 }
 
 function configProg () {
