@@ -128,7 +128,7 @@ function configNodejs () {
   export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' | tee -a ~/.bashrc
 
   npm install --global npm@latest
-  npm install --global yo
+  npm install --global yo@latest
   npm install --global bower
   npm install --global generator-aspnet
 }
@@ -145,11 +145,42 @@ function configTerminator () {
   gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
 }
 
+function configAtom () {
+
+  apm install atom-bootstrap3
+  apm install atom-css-comb
+  apm install auto-detect-indentation
+  apm install autoclose-html
+  apm install busy-signal
+  apm install color-picker
+  apm install emmet
+  apm install git-plus
+  apm install highlight-selected
+  apm install intentions
+  apm install javascript-snippets
+  apm install json-schema
+  apm install language-cshtml
+  apm install linter
+  apm install linter-csslint
+  apm install linter-htmlhint
+  apm install linter-js-standard
+  apm install linter-ui-default
+  apm install minimap
+  apm install minimap-find-and-replace
+  apm install minimap-git-diff
+  apm install minimap-highlight-selected
+  apm install pigments
+  apm install code-peek
+  apm install sync-settings
+  apm install omnisharp atom
+}
+
 function configProg () {
 
   configNodejs
   configGit
   configTerminator
+  configAtom
   tlp start
 }
 
