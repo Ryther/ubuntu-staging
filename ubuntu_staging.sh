@@ -172,7 +172,14 @@ function configAtom () {
   apm install pigments
   apm install code-peek
   apm install sync-settings
-  apm install omnisharp atom
+  apm install omnisharp-atom
+  apm install seti-ui
+  apm install monokai-seti
+  cd ~/.atom/packages
+  for d in ./*/ ; do (cd "$d" && apm install); done
+  echo "\"sync-settings\":
+    gistId: \"02604a3ac1f6f272b86ae085eb5c6672\"
+    personalAccessToken: \"53a157cf60052312425d86a18748a41469a243e3\"" >> ~/.atom/config.cson
 }
 
 function configProg () {
