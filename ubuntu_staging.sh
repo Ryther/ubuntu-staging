@@ -179,7 +179,7 @@ function configAtom () {
   for d in ./*/ ; do (cd "$d" && apm install); done
   echo "\"sync-settings\":
     gistId: \"02604a3ac1f6f272b86ae085eb5c6672\"
-    personalAccessToken: \"53a157cf60052312425d86a18748a41469a243e3\"" >> ~/.atom/config.cson
+    personalAccessToken: \"10715390466e204c9305e111ef23a48b0593b1ad\"" >> ~/.atom/config.cson
 }
 
 function configProg () {
