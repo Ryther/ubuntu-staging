@@ -174,7 +174,7 @@ function configVSCode () {
   code --install-extension wcwhitehead.bootstrap-3-snippets
   code --install-extension donjayamanne.jquerysnippets
   echo "\"sync-settings\":
-    gistId: \"bfb437b8--764ca3ac275--df276211679e6\"
+    gistId: \"7f1a74bef3d6794a3c2dd38ef6babc59\"
     personalAccessToken: \"ca83ede42--a76698022eef9064--6a01d27fd7fffb2\"" >> ~/vscode-sync-settings-keys.txt
 }
 
