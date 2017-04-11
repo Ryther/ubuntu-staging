@@ -7,11 +7,9 @@ osStandardName="wily"
 # Config params
 dotnetVersion="1.0.1"
 # PPA params
-chromePPA="### THIS FILE IS AUTOMATICALLY CONFIGURED ###
-# You may comment out this entry, but any other modifications may be lost.
-deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+chromePPA="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
 netcorePPA="deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ $osName main"
-atomPPA="webupd8team/atom"
+vscodePPA="webupd8team/atom"
 gdrivePPA="deb http://apt.insynchq.com/$osType $osStandardName non-free contrib"
 # download URLs
 nodejsURL="https://deb.nodesource.com/setup_7.x"
@@ -58,10 +56,11 @@ function installDotNet () {
   stdMessage 'Added .NET Core signing key to keyring'
 }
 
-function installAtom () {
+function installVSCode () {
 
-  # add PPA
-  add-apt-repository -y ppa:$atomPPA
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  addPPA 'Visual Studio Code' "$vscodePPA" '/etc/apt/sources.list.d/vscode.list'
 }
 
 function installGoogleDrive () {
@@ -95,7 +94,7 @@ function install () {
   installChrome
   installDotNet
   installNodejs
-  installAtom
+  installVSCode
   installGoogleDrive
   installTLP
   installTerminator
@@ -106,7 +105,7 @@ function install () {
   apt-get install -y git-core preload 7zip unrar zip unzip \
     libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev \
     libcurl4-openssl-dev libssl-dev uuid-dev linux-headers-generic libgnome-keyring-dev
-  apt-get install -y git google-chrome-stable atom nodejs "dotnet-dev-$dotnetVersion" insync \
+  apt-get install -y git google-chrome-stable code nodejs "dotnet-dev-$dotnetVersion" insync \
     unity-tweak-tool compizconfig-settings-manager terminator zsh tlp tlp-rdw antimicro
   apt-get update -y
   apt-get upgrade -y
@@ -145,41 +144,38 @@ function configTerminator () {
   gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
 }
 
-function configAtom () {
+function configVSCode () {
 
-  apm install atom-bootstrap3
-  apm install atom-css-comb
-  apm install auto-detect-indentation
-  apm install autoclose-html
-  apm install busy-signal
-  apm install color-picker
-  apm install emmet
-  apm install git-plus
-  apm install highlight-selected
-  apm install intentions
-  apm install javascript-snippets
-  apm install json-schema
-  apm install language-cshtml
-  apm install linter
-  apm install linter-csslint
-  apm install linter-htmlhint
-  apm install linter-js-standard
-  apm install linter-ui-default
-  apm install minimap
-  apm install minimap-find-and-replace
-  apm install minimap-git-diff
-  apm install minimap-highlight-selected
-  apm install pigments
-  apm install code-peek
-  apm install sync-settings
-  apm install omnisharp-atom
-  apm install seti-ui
-  apm install monokai-seti
-  cd ~/.atom/packages
-  for d in ./*/ ; do (cd "$d" && apm install); done
+  code --install-extension bibhasdn.git-easy
+  code --install-extension Shan.code-settings-sync
+  code --install-extension alefragnani.project-manager
+  code --install-extension JerryHong.autofilename
+  code --install-extension dbaeumer.vscode-eslint
+  code --install-extension xabikos.javascriptsnippets
+  code --install-extension WallabyJs.wallaby-vscode
+  code --install-extension donjayamanne.githistory
+  code --install-extension joelday.docthis
+  code --install-extension christian-kohler.npm-intellisense
+  code --install-extension steve8708.align
+  code --install-extension wmaurer.change-case
+  code --install-extension hnw.vscode-auto-open-markdown-preview
+  code --install-extension DavidAnson.vscode-markdownlint
+  code --install-extension shinnn.stylelint
+  code --install-extension Equinusocio.vsc-material-theme
+  code --install-extension formulahendry.auto-close-tag
+  code --install-extension formulahendry.auto-rename-tag
+  code --install-extension Rubymaniac.vscode-paste-and-indent
+  code --install-extension naumovs.color-highlight
+  code --install-extension ms-vscode.csharp
+  code --install-extension pranaygp.vscode-css-peek
+  code --install-extension msjsdiag.debugger-for-chrome
+  code --install-extension HookyQR.beautify
+  code --install-extension abusaidm.html-snippets
+  code --install-extension wcwhitehead.bootstrap-3-snippets
+  code --install-extension donjayamanne.jquerysnippets
   echo "\"sync-settings\":
-    gistId: \"02604a3ac1f6f272b86ae085eb5c6672\"
-    personalAccessToken: \"10715390466e204c9305e111ef23a48b0593b1ad\"" >> ~/.atom/config.cson
+    gistId: \"bfb437b8--764ca3ac275--df276211679e6\"
+    personalAccessToken: \"ca83ede42--a76698022eef9064--6a01d27fd7fffb2\"" >> ~/vscode-sync-settings-keys.txt
 }
 
 function configProg () {
@@ -187,7 +183,7 @@ function configProg () {
   configNodejs
   configGit
   configTerminator
-  configAtom
+  configVSCode
   tlp start
 }
 
