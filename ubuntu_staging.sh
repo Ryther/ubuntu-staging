@@ -9,7 +9,7 @@ dotnetVersion="1.0.1"
 # PPA params
 chromePPA="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
 netcorePPA="deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ $osName main"
-vscodePPA="webupd8team/atom"
+vscodePPA="deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main"
 gdrivePPA="deb http://apt.insynchq.com/$osType $osStandardName non-free contrib"
 # download URLs
 nodejsURL="https://deb.nodesource.com/setup_7.x"
